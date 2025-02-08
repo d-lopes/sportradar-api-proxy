@@ -1,130 +1,128 @@
-# SportRadar API Proxy 🏈🏀⚽
+# **SportsRadar API Proxy** 🏈🏀⚽  
 
-A lightweight proxy for the **SportsRadar API**, making integration seamless and hassle-free.  
+A lightweight proxy for the **[SportsRadar API](https://developer.sportradar.com/getting-started/docs/coverage-information)**, simplifying integration and resolving CORS issues.  
 
-## Features:
+## **Features**  
+✅ **Automatic API Key Handling** – Appends API key to all forwarded requests  
+✅ **Transparent Responses** – Returns exact results from the SportsRadar API  
+✅ **CORS-Friendly** – Enables access from any domain, avoiding browser CORS issues  
 
-✅ **Automatic API Key Handling** – Forwards all requests while appending your API key.  
-✅ **Transparent Responses** – Returns results exactly as received from SportsRadar.  
-✅ **CORS-Friendly** – Enables access from any domain, avoiding browser CORS issues.  
+Effortless SportsRadar API access, with no headaches! 🚀  
 
-Effortless SportsRadar API access, with no headaches! 🚀
+## **Prerequisites**  
 
-## Pre-requisits
-
-Install runtime dependencies with the corresponding script for your OS (`install-on-<os>.sh`), for example:
+Install runtime dependencies using the corresponding script for your OS:  
 
 ```bash
 sh install-on-mac.sh
 ```
 
-## Using the proxy
+## **Usage**  
 
-Provide you API Key in a `.env` file:
+1️⃣ **Set up your API Key:**  
 
 ```bash
 cp .sample.env .env
-
-# set the API key in the .env file
+# Edit .env to set your API key
 ```
 
-Run the image with Docker Compose like this:
+2️⃣ **Start the proxy using Docker Compose:**  
 
 ```bash
-# Start the service
 docker-compose up -d
+```
 
-# Check logs
+After startup, access the API locally:  
+🔗 **http://localhost:8080/nfl/...** (forwards requests to the SportsRadar API)  
+
+3️⃣ **Check logs, if necessary:**  
+
+```bash
 docker-compose logs -f
+```
 
-# Stop the service
+4️⃣ **Stop the service:**
+
+```bash
 docker-compose down
 ```
 
-After a few seconds you will see output similar to the following in the terminal window:
+## **Development & Contribution**  
 
-```
-2025-02-05 23:11:21.897  INFO 72056 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.9.0 (sport-radar-proxy) is starting
-2025-02-05 23:11:21.982  INFO 72056 --- [           main] vertx.core.spi.resolver.ResolverProvider : Using the default address resolver as the dns resolver could not be loaded
-2025-02-05 23:11:22.035  INFO 72056 --- [ntloop-thread-0] tform.http.vertx.VertxPlatformHttpServer : Vert.x HttpServer started on 0.0.0.0:8080
-2025-02-05 23:11:22.122  INFO 72056 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (total:2)
-2025-02-05 23:11:22.123  INFO 72056 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started health-check (platform-http:///health)
-2025-02-05 23:11:22.123  INFO 72056 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started sportradar-proxy (platform-http:///nfl/)
-2025-02-05 23:11:22.123  INFO 72056 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.9.0 (sport-radar-proxy) started in 225ms (build:0ms init:0ms start:225ms boot:5s677ms)
-2025-02-05 23:11:22.124  INFO 72056 --- [           main] ponent.platform.http.main.MainHttpServer : HTTP endpoints summary
-2025-02-05 23:11:22.124  INFO 72056 --- [           main] ponent.platform.http.main.MainHttpServer :     http://0.0.0.0:8080/health             
-2025-02-05 23:11:22.124  INFO 72056 --- [           main] ponent.platform.http.main.MainHttpServer :     http://0.0.0.0:8080/nfl/  
-```
+This project is developed using [Camel JBang](https://camel.apache.org/manual/camel-jbang.html) and [GraalVM](https://www.graalvm.org/). These dependencies should be installed on your local machine to aid further development of the project.
 
-As soon as this happens, the local API is accessible underneath: http://localhost:8080/nfl/... and forwards all requests to the remote Sportsradar API
+### **Set Up Development Environment**
 
-## Contributing
-
-This project was generated using [Camel Jbang](https://camel.apache.org/manual/camel-jbang.html). Please, refer the the online documentation for learning more about how to configure the export of a Camel application.
-
-### Prepare Environment
-
-Install development dependencies with the corresponding script for your OS (`setup-4-dev-on-<os>.sh`), for example:
+Install dependencies (JBand & Apache Camel) for development:
 
 ```bash
 sh setup-4-dev-on-mac.sh
 ```
 
-Optional: If you want to test the native image build locally, install GraalVM (e. g. with SDK man) as well:
+For **native image testing**, additionally install GraalVM:
 
 ```bash
 sdk install java 23.0.2-graal
 ```
 
-### Extending Camel routes
+### **Modifying Camel Routes**
 
-Camel routes are defined as YAML in the file `src/main/resources/camel/routing.camel.yaml`
-Components that can be used for integration can be looked up at the [ Camel documentation website](https://camel.apache.org/components/4.8.x/index.html)
+Routes are defined in: 📂 `src/main/resources/camel/routing.camel.yaml`  
 
-### Testing adjustments
+🔍 **Find available components:** [Camel Components Documentation](https://camel.apache.org/components/4.8.x/index.html)  
 
-Run the following command from a terminal window you can quickly run an test your adjusted camel routes:
+### **Testing Adjustments**
+
+Quickly test changes to routes with:  
 
 ```bash
 camel run camel-jbang.properties ./**/*.camel.yaml
 ```
 
-### Building the application artifact
+### **Build & Run the Application**
+
+Compile the application:
 
 ```bash
 ./mvnw clean package
 ```
 
-The application could now immediately run:
+Run the packaged JAR:
 
 ```bash
 java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-## Creating a Docker container
+## **Docker Support**  
 
-Build the image with:
+### **Create and Run a Docker Container**  
+
+Build the Docker image:  
 
 ```bash
 docker build -f Dockerfile -t sport-radar-proxy:latest .
 ```
 
-Then run the container using:
+If you want to build and immediately run the new container version, you can do so by using the prepared `docker-compose.local-jvm.yaml`:
 
 ```bash
-docker run -it --rm -p 8080:8080 sport-radar-proxy:latest
+docker-compose up -d -f docker-compose.local-jvm.yaml
 ```
 
-### Creating a Native Docker container
+### **Build & Run a Native Docker Container**  
 
-Build the image with:
+For a **smaller, faster** native container run the following:  
 
 ```bash
 docker build -f Dockerfile.native -t sport-radar-proxy:native-latest .
 ```
 
-Then run the container using:
+If you want to build and immediately run the new native container version, you can do so by using the prepared `docker-compose.local-native.yaml`:
 
 ```bash
-docker run -it --rm -p 8080:8080 sport-radar-proxy:native-latest
+docker-compose up -d -f docker-compose.local-native.yaml
 ```
+
+## **License**  
+
+This project is licensed under the [Apache License 2.0](LICENSE).  
