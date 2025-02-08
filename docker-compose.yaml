@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   sport-radar-proxy:
-    image: sport-radar-proxy:native-latest
+    image: ghcr.io/d-lopes/sportradar-api-proxy:v0.1.1
     container_name: sport-radar-proxy
     ports:
       - "8080:8080"
