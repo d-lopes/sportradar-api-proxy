@@ -1,0 +1,17 @@
+# Maven specific
+target/
+
+# IDE - VS Code
+.vscode/
+.code-workspace
+
+# camel jbang
+.camel-jbang
+.camel-jbang-run
+.export
+
+# env
+.env
+
+# common
+.DS_Store

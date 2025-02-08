@@ -1,0 +1,34 @@
+#################################
+# Build stage
+#################################
+FROM ghcr.io/graalvm/native-image-community:23 as builder
+
+# Create and set working directory
+WORKDIR /build
+
+# copy required source files
+COPY mvnw /build
+COPY pom.xml /build
+COPY .mvn/wrapper /build/.mvn/wrapper
+COPY src /build/src
+
+# Build target files
+RUN ./mvnw package -Dnative
+
+#################################
+# Final stage
+#################################
+FROM oraclelinux:9-slim
+
+WORKDIR /work/
+
+RUN chown 1001 /work \
+    && chmod "g+rwX" /work \
+    && chown 1001:root /work
+
+COPY --from=builder --chown=1001:root /build/target/*-runner /work/application
+
+EXPOSE 8080
+USER 1001
+
+ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0"]

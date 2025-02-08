@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  sport-radar-proxy:
+    image: sport-radar-proxy:native-latest
+    container_name: sport-radar-proxy
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - SPORT_RADAR_API_KEY=${SPORT_RADAR_API_KEY}
+    restart: unless-stopped
+    networks:
+      - camel-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  camel-network:
+    driver: bridge

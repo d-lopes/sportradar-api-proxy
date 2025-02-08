@@ -1,0 +1,53 @@
+- route:
+    id: sportradar-proxy
+    description: Proxy requests to NFL product of Sports Radar API with API key
+    from:
+      uri: platform-http
+      parameters:
+        path: /nfl/ # Use regex to match any characters after /nfl/
+        matchOnUriPrefix: true
+      steps:
+        # Set API key
+        - setProperty:
+            id: set-api-key
+            name: apiKey
+            expression:
+              simple: "{{env:SPORT_RADAR_API_KEY}}"
+
+        # Set the query string in a header
+        - setHeader:
+            name: CamelHttpQuery
+            expression:
+              simple: "api_key=${exchangeProperty.apiKey}"
+
+        # Set accept header
+        - setHeader:
+            id: set-accept-header
+            name: Accept
+            expression:
+              constant: application/json
+
+        # Forward to Sports Radar API
+        - to:
+            uri: "https://api.sportradar.com"
+            parameters:
+              httpMethod: GET
+              bridgeEndpoint: true
+              throwExceptionOnFailure: false
+
+        # Set CORS headers for browser access
+        - setHeader:
+            id: set-cors-origin
+            name: Access-Control-Allow-Origin
+            expression:
+              constant: "*"
+        - setHeader:
+            id: set-cors-methods
+            name: Access-Control-Allow-Methods
+            expression:
+              constant: "GET, OPTIONS"
+        - setHeader:
+            id: set-cors-headers
+            name: Access-Control-Allow-Headers
+            expression:
+              constant: "Origin, Content-Type, Accept"

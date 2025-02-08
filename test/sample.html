@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example: Fetching Data from Proxy</title>
+</head>
+<body>
+    <div id="info">Loading data ...</div>
+
+    <script>
+        async function checkFetchData() {
+            try {
+                const response = await fetch('http://localhost:8080/nfl/official/trail/v7/en/games/current_season/schedule.json');
+                const data = await response.text();
+                document.getElementById('info').textContent = data;
+            } catch (error) {
+                document.getElementById('info').textContent = 'Error: Could not connect to server';
+            }
+        }
+
+        // Check immediately when page loads
+        checkFetchData();
+    </script>
+</body>
+</html>
