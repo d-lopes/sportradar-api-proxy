@@ -79,6 +79,8 @@ Quickly test changes to routes with:
 camel run camel-jbang.properties ./**/*.camel.yaml
 ```
 
+You can use and extend the prepared HTML sample file underneath `src/test/resources/sample.html` to check whether your adjustments worked correctly.
+
 ### **Build & Run the Application**
 
 Compile the application:
