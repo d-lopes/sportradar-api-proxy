@@ -9,10 +9,10 @@ feature:
 
 ## Pre-requisits
 
-Install dependencies with ...
+Install runtime dependencies with the corresponding script for your OS (`install-on-<os>.sh`), for example:
 
 ```bash
-sh install.sh
+sh install-on-mac.sh
 ```
 
 ## Using the proxy
