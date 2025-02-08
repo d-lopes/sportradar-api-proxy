@@ -1,11 +1,14 @@
-# sportradar-api-proxy
+# SportRadar API Proxy 🏈🏀⚽
 
-SportRadar API proxy
+A lightweight proxy for the **SportsRadar API**, making integration seamless and hassle-free.  
 
-feature:
-- forwards all requests to the remote Sportsradar API automatically appends the API Key 
-- returning the exact results from the remote Sportsradar API
-- enabling access from any domain (thereby avoiding common issues with CORS in browsers)
+## Features:
+
+✅ **Automatic API Key Handling** – Forwards all requests while appending your API key.  
+✅ **Transparent Responses** – Returns results exactly as received from SportsRadar.  
+✅ **CORS-Friendly** – Enables access from any domain, avoiding browser CORS issues.  
+
+Effortless SportsRadar API access, with no headaches! 🚀
 
 ## Pre-requisits
 
